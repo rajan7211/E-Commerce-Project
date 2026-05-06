@@ -1,10 +1,9 @@
-
 import "reflect-metadata";
 import express from "express";
 import dotenv from "dotenv";
 import { AppDataSource } from "./config/database";
 import authRoutes from "./routes/auth.routes";
-
+// import { authMiddleware} from "./middlewares/auth.middleware"
 
 dotenv.config();
 
@@ -14,9 +13,11 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 
+
 app.get("/", (req, res) => {
   res.send("API is running ");
 });
+
 
 
 app.use((err: any, req: any, res: any, next: any) => {
@@ -25,6 +26,7 @@ app.use((err: any, req: any, res: any, next: any) => {
     message: "Internal Server Error",
   });
 });
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -53,5 +55,7 @@ AppDataSource.initialize()
 
 
 
-  
+
+
+
 

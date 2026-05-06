@@ -1,3 +1,5 @@
+import { UserRole } from "../utils/enums";
+
 import {
   Entity, PrimaryGeneratedColumn, Column,
   OneToMany, OneToOne,
@@ -9,12 +11,6 @@ import { Cart } from "./Cart";
 import { Order } from "./Order";
 import { Store } from "./Store";
 
-export enum UserRole {
-  CUSTOMER = "customer",
-  SELLER = "seller",
-  ADMIN = "admin",
-}
-
 @Entity("users")
 export class User {
 
@@ -22,7 +18,7 @@ export class User {
   id: number;
 
   @Column()
-  first_name:string;
+  first_name: string;
 
   @Column()
   last_name: string;
@@ -38,7 +34,6 @@ export class User {
     enum: UserRole,
     default: UserRole.CUSTOMER,
   })
-
   role: UserRole;
 
   @OneToMany(() => Address, (address) => address.user)
@@ -53,18 +48,12 @@ export class User {
   @OneToMany(() => Store, (store) => store.user)
   stores: Store[];
 
-
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
 }
-
-
-
-
-
 
 
 
