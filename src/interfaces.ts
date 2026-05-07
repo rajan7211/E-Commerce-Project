@@ -1,7 +1,8 @@
 import { Request } from "express";
 import { UserRole } from "./utils/enums";
 
-/* ================= AUTH ================= */
+
+//  AUTH 
 
 export interface RegisterInput {
   first_name: string;
@@ -16,7 +17,8 @@ export interface LoginInput {
   user_pass: string;
 }
 
-/* ================= USER ================= */
+
+//  USER 
 
 export interface IUserResponse {
   id: number;
@@ -26,21 +28,21 @@ export interface IUserResponse {
   role: UserRole;
 }
 
-/* ================= PROFILE ================= */
+//  PROFILE
 
 export interface UpdateProfileInput {
   first_name?: string;
   last_name?: string;
 }
 
-/* ================= STORE ================= */
+// STORE 
 
 export interface CreateStoreInput {
   name: string;
   description?: string;
 }
 
-/* ================= PRODUCT ================= */
+// PRODUCT
 
 export interface CreateProductInput {
   title: string;
@@ -65,3 +67,24 @@ export interface AuthRequest extends Request {
     role: UserRole;
   };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

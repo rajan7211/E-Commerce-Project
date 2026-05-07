@@ -13,6 +13,7 @@ export const roleMiddleware = (allowedRoles: UserRole[]) => {
         });
       }
 
+
       const userRole: UserRole = req.user.role;
 
       // role check
