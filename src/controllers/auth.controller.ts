@@ -4,6 +4,8 @@ import { AppDataSource } from "../config/database";
 import { User } from "../entities/User";
 import { RegisterInput, LoginInput, UpdateProfileInput } from "../interfaces";
 
+import { USER_MESSAGES, COMMON_MESSAGES } from "../utils/messages";
+
 const userRepo = AppDataSource.getRepository(User);
 
 export class AuthController {
@@ -52,18 +54,18 @@ export class AuthController {
 
       if (!user) {
         return res.status(404).json({
-          message: "User not found",
+          message: USER_MESSAGES.USER_NOT_FOUND,
         });
       }
 
       res.status(200).json({
-        message: "Profile fetched successfully",
+        message: USER_MESSAGES.PROFILE_FETCHED,
         user,
       });
 
     } catch (err: any) {
       res.status(500).json({
-        message: err.message || "Internal Server Error",
+        message: err.message || COMMON_MESSAGES.SERVER_ERROR,
       });
     }
   }
@@ -81,7 +83,7 @@ export class AuthController {
 
       if (!user) {
         return res.status(404).json({
-          message: "User not found",
+          message: USER_MESSAGES.USER_NOT_FOUND,
         });
       }
 
@@ -91,7 +93,7 @@ export class AuthController {
       await userRepo.save(user);
 
       res.status(200).json({
-        message: "Profile updated successfully",
+        message: USER_MESSAGES.PROFILE_UPDATED,
         user: {
           id: user.id,
           first_name: user.first_name,
@@ -102,7 +104,7 @@ export class AuthController {
 
     } catch (err: any) {
       res.status(500).json({
-        message: err.message || "Internal Server Error",
+        message: err.message || COMMON_MESSAGES.SERVER_ERROR,
       });
     }
   }

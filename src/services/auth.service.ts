@@ -5,6 +5,7 @@ import { hashPassword, comparePassword } from "../utils/hash";
 import { generateToken } from "../utils/jwt";
 import { RegisterInput, LoginInput } from "../interfaces";
 
+import { AUTH_MESSAGES } from "../utils/messages";
 
 
 const userRepo = AppDataSource.getRepository(User);
@@ -19,7 +20,7 @@ export class AuthService {
     });
 
     if (existingUser) {
-      throw new Error("Email already exists");
+      throw new Error(AUTH_MESSAGES.Email_Already_Exist);
     }
 
     const hashed = await hashPassword(data.user_pass);
@@ -42,7 +43,7 @@ export class AuthService {
     await userRepo.save(user);
 
     return {
-      message: "User registered successfully",
+      message: AUTH_MESSAGES.USER_REGISTERD,
       user: {
         id: user.id,
         role: user.role,
@@ -50,7 +51,7 @@ export class AuthService {
     };
   }
 
-  // ✅ LOGIN
+  // LOGIN
   static async login(data: LoginInput) {
 
     const user = await userRepo.findOne({
@@ -58,7 +59,7 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new Error("Invalid credentials");
+      throw new Error(AUTH_MESSAGES.INVALID_ID_CREDENTIALS);
     }
 
     const isMatch = await comparePassword(
@@ -67,7 +68,7 @@ export class AuthService {
     );
 
     if (!isMatch) {
-      throw new Error("Invalid credentials");
+      throw new Error(AUTH_MESSAGES.INVALID_ID_CREDENTIALS);
     }
 
     const token = generateToken({
@@ -76,7 +77,7 @@ export class AuthService {
     });
 
     return {
-      message: "Login successful",
+      message: AUTH_MESSAGES.LOGIN_SUCCESS,
       token,
       user: {
         id: user.id,

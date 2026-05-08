@@ -2,6 +2,8 @@ import { Response, NextFunction } from "express";
 import { UserRole } from "../utils/enums";
 import { AuthRequest } from "../interfaces"; 
 
+import { AUTH_MESSAGES, COMMON_MESSAGES } from "../utils/messages";
+
 export const roleMiddleware = (allowedRoles: UserRole[]) => {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
@@ -9,7 +11,7 @@ export const roleMiddleware = (allowedRoles: UserRole[]) => {
       // user check
       if (!req.user || !req.user.role) {
         return res.status(401).json({
-          message: "Unauthorized",
+          message: AUTH_MESSAGES.UnAuthorized,
         });
       }
 
@@ -19,7 +21,7 @@ export const roleMiddleware = (allowedRoles: UserRole[]) => {
       // role check
       if (!allowedRoles.includes(userRole)) {
         return res.status(403).json({
-          message: "Access denied",
+          message: AUTH_MESSAGES.Access_Denied,
         });
       }
 
@@ -27,7 +29,7 @@ export const roleMiddleware = (allowedRoles: UserRole[]) => {
 
     } catch {
       return res.status(500).json({
-        message: "Role check failed",
+        message:COMMON_MESSAGES.SERVER_ERROR,
       });
     }
   };

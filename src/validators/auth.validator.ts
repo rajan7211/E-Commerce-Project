@@ -1,42 +1,43 @@
 import Joi from "joi";
+import { VALIDATION_MESSAGES } from "../utils/messages";
 export const registerSchema = Joi.object({
   first_name: Joi.string()
     .min(2)
     .required()
     .messages({
-      "string.empty": "First name is required",
-      "string.min": "First name must be at least 2 characters",
+      "string.empty": VALIDATION_MESSAGES.FIRST_NAME_REQUIRED,
+      "string.min": VALIDATION_MESSAGES.FIRST_NAME_MIN,
     }),
 
   last_name: Joi.string()
     .min(2)
     .required()
     .messages({
-      "string.empty": "Last name is required",
-      "string.min": "Last name must be at least 2 characters",
+      "string.empty": VALIDATION_MESSAGES.LAST_NAME_REQUIRED,
+      "string.min": VALIDATION_MESSAGES.LAST_NAME_MIN,
     }),
 
   user_email: Joi.string()
     .email()
     .required()
     .messages({
-      "string.email": "Invalid email format",
-      "string.empty": "Email is required",
+      "string.email": VALIDATION_MESSAGES.INVALID_EMAIL,
+      "string.empty": VALIDATION_MESSAGES.EMAIL_REQUIRED,
     }),
 
   user_pass: Joi.string()
     .min(6)
     .required()
     .messages({
-      "string.min": "Password must be at least 6 characters",
-      "string.empty": "Password is required",
+      "string.min": VALIDATION_MESSAGES.PASSWORD_MIN,
+      "string.empty": VALIDATION_MESSAGES.PASSWORD_REQUIRED,
     }),
 
   role: Joi.string()
     .valid("customer", "seller")  
     .default("customer")
     .messages({
-      "any.only": "Role must be either 'customer' or 'seller'",
+      "any.only": VALIDATION_MESSAGES.INVALID_ROLE,
     }),
 });
 
@@ -46,14 +47,14 @@ export const loginSchema = Joi.object({
   .email()  
     .required()
     .messages({
-      "string.email": "Invalid email format",
-      "string.empty": "Email is required",
+      "string.email": VALIDATION_MESSAGES.INVALID_EMAIL,
+      "string.empty": VALIDATION_MESSAGES.EMAIL_REQUIRED,
     }),
 
   user_pass: Joi.string()  
     .required()
     .messages({
-      "string.empty": "Password is required",
+      "string.empty": VALIDATION_MESSAGES.PASSWORD_REQUIRED,
     }),
 });
 

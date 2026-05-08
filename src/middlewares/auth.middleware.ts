@@ -1,6 +1,7 @@
 import { Response, NextFunction } from "express";
 import { verifyToken } from "../utils/jwt";
 import { AuthRequest } from "../interfaces";
+import { AUTH_MESSAGES } from "../utils/messages";
 
 export const authMiddleware = (
   req: AuthRequest,
@@ -12,7 +13,7 @@ export const authMiddleware = (
 
     if (!token) {
       return res.status(401).json({
-        message: "No token provided",
+        message: AUTH_MESSAGES.Token_Required,
       });
     }
 
@@ -23,7 +24,7 @@ export const authMiddleware = (
     next();
   } catch {
     return res.status(401).json({
-      message: "Invalid token",
+      message: AUTH_MESSAGES.Invalid_Token,
     });
   }
 };
